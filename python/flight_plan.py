@@ -1,5 +1,11 @@
-dat_file_path = "../data/"
-save_file_path = "../my_plans/"
+import platform
+
+if platform.system == 'Windows':
+	dat_file_path = "..\\data\\"
+	save_file_path = "..\\my_plans\\"
+else:
+	dat_file_path = "../data/"
+	save_file_path = "../my_plans/"
 earth_nav_file = "%searth_nav.dat"%dat_file_path
 earth_fix_file = "%searth_fix.dat"%dat_file_path
 earth_nav = {}
@@ -101,11 +107,11 @@ if __name__ == "__main__":
 	print "Loading %s..."%earth_fix_file
 	do_load(earth_fix_file, earth_fix, ("I", "600", "99"), 2, 0)
 	print "Earth fix file loaded"
-	print len(earth_fix)
+	print "%s waypoints found"%len(earth_fix)
 	print "Loading %s..."%earth_nav_file
 	do_load(earth_nav_file, earth_nav, ("I", "810", "99"), 7, 1)
 	print "Earth nav file loaded"
-	print len(earth_nav)
+	print "%s waypoints found"%len(earth_nav)
 	flight_plan = {}
 	airline = raw_input("Airline code: ")
 	flight_plan["departure_time"] = raw_input('Departure time: ')

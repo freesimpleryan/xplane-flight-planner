@@ -1,5 +1,5 @@
 # xplane-flight-planner
-Application to assist with creating XPlane flight plan files
+Application to assist with creating XPlane flight plan files.
 
 # For Local Use
 * Make sure Python version 2.x is installed

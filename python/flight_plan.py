@@ -97,7 +97,7 @@ def make_waypoint(waypoint_input):
 		asl_or_agl = raw_input('ASL or AGL: ')
 	waypoint.append(' %s '%asl_or_agl)
 	waypoint.append(' %s '%airspeed)
-	max_bank_angle = raw_input('Max bank angle: ')
+	max_bank_angle = "25"
 	waypoint.append(' %s '%max_bank_angle)
 	waypoint.append('-1 -1 1 ')
 	waypoint.append(waypoint_input)

@@ -87,7 +87,7 @@ def make_waypoint(waypoint_input):
 	if int(altitude) < int(cruise_altitude):
 		airspeed = climb_speed
 	elif int(altitude) == int(cruise_altitude):
-		airspeed = cruise_altitude
+		airspeed = cruise_speed
 	else:
 		print "Waypoint altitude is higher than cruise altitude!"
 		return ''

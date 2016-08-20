@@ -1,12 +1,12 @@
-
-
-
 dat_file_path = "../data/"
 save_file_path = "../my_plans/"
 earth_nav_file = "%searth_nav.dat"%dat_file_path
 earth_fix_file = "%searth_fix.dat"%dat_file_path
 earth_nav = {}
 earth_fix = {}
+cruise_altitude = ""
+cruise_speed = ""
+climb_speed = ""
 
 def do_load(in_file, mem_dict, ignore_flags, index_callsign, gps_index):
 	f = open(in_file)
@@ -76,13 +76,20 @@ def make_waypoint(waypoint_input):
 	waypoint.append(''.join(coordinates))
 	waypoint.append(' ')
 	print "%s found. Coordinates %s added."%(waypoint_input, coordinates)
-	altitude = raw_input('Altitude: ')
+	altitude = raw_input('Waypoint Altitude: ')
 	waypoint.append(altitude)
+	if int(altitude) < int(cruise_altitude):
+		airspeed = climb_speed
+	elif int(altitude) == int(cruise_altitude):
+		airspeed = cruise_altitude
+	else:
+		print "Waypoint altitude is higher than cruise altitude!"
+		return ''
+	print "Airspeed set to %s"%airspeed
 	asl_or_agl = ''
 	while not (asl_or_agl == "ASL" or asl_or_agl == "AGL"):
 		asl_or_agl = raw_input('ASL or AGL: ')
 	waypoint.append(' %s '%asl_or_agl)
-	airspeed = raw_input("Airspeed: ")
 	waypoint.append(' %s '%airspeed)
 	max_bank_angle = raw_input('Max bank angle: ')
 	waypoint.append(' %s '%max_bank_angle)
@@ -109,12 +116,14 @@ if __name__ == "__main__":
 	flight_plan["departure_airport"] = raw_input('ICAO of departure airport: ')
 	flight_plan["destination_airport"] = raw_input('ICAO of arrival airport: ')
 	print "Fly to completion? 1 = yes, 0 = no"
-	flight_plan["fly_to_completion"] = input('')
-	if flight_plan["fly_to_completion"] != "0":
-		if flight_plan["fly_to_completion"] != 1:
-			print "Defaulting to 1"
+	flight_plan["fly_to_completion"] = raw_input('')
+	if not (flight_plan["fly_to_completion"] == "1" or flight_plan["fly_to_completion"] == "0"):
+		print "Defaulting to 1"
 		flight_plan["fly_to_completion"] = "1"
 	flight_plan["landing_light_altitude"] = raw_input('Landing light altitude: ')
+	cruise_altitude = raw_input('Cruise altitude: ')
+	cruise_speed = raw_input('Cruise speed: ')
+	climb_speed = raw_input('Climb speed: ')
 	print "Chart course. Type 'done' when done."
 	waypoint_input = ""
 	steer_points = []

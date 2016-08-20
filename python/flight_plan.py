@@ -13,6 +13,7 @@ earth_fix = {}
 cruise_altitude = ""
 cruise_speed = ""
 climb_speed = ""
+asl_or_agl = ''
 
 def do_load(in_file, mem_dict, ignore_flags, index_callsign, gps_index):
 	f = open(in_file)
@@ -92,9 +93,6 @@ def make_waypoint(waypoint_input):
 		print "Waypoint altitude is higher than cruise altitude!"
 		return ''
 	print "Airspeed set to %s"%airspeed
-	asl_or_agl = ''
-	while not (asl_or_agl == "ASL" or asl_or_agl == "AGL"):
-		asl_or_agl = raw_input('ASL or AGL: ')
 	waypoint.append(' %s '%asl_or_agl)
 	waypoint.append(' %s '%airspeed)
 	max_bank_angle = "25"
@@ -130,6 +128,8 @@ if __name__ == "__main__":
 	cruise_altitude = raw_input('Cruise altitude: ')
 	cruise_speed = raw_input('Cruise speed: ')
 	climb_speed = raw_input('Climb speed: ')
+	while not (asl_or_agl == "ASL" or asl_or_agl == "AGL"):
+		asl_or_agl = raw_input('ASL or AGL: ')
 	print "Chart course. Type 'done' when done."
 	waypoint_input = ""
 	steer_points = []
